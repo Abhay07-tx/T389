@@ -1,0 +1,23 @@
+General Data Repositories & Search Engines
+These platforms offer a wide variety of datasets across many domains, making them excellent starting points for any project.
+● Google Dataset Search: A powerful search engine specifically for datasets.
+○ Link: https://datasetsearch.research.google.com/
+● Kaggle: A highly popular platform for data science, featuring numerous datasets, competitions, and community-contributed notebooks.
+○ Link: https://www.kaggle.com/datasets
+● Data.gov:
+● The official portal for open data from the U.S. government.
+○ Link: https://www.data.gov/
+● Data.world:
+● A collaborative data platform with a vast collection of user-uploaded datasets.
+○ Link: https://data.world/
+● UCI Machine Learning Repository:
+● A classic and well-established source for machine learning datasets.
+○ Link: https://archive.ics.uci.edu/datasets
+● DataHub: Offers a comprehensive collection of free and open datasets across various topics.
+○ Link: https://datahub.io/
+● GitHub (Awesome-Public-Datasets): Curated lists of public datasets on GitHub. Search for repositories like "awesome-public-datasets".
+○ Link (example): https://github.com/awesomedata/awesome-public-datasets
+● AWS Data Exchange: A platform offering various datasets from different providers, including free public datasets.
+○ Link: https://aws.amazon.com/data-exchange/
+● OpenML: Focused on machine learning datasets, often used for benchmarking algorithms.
+○ Link: https://www.openml.org/
