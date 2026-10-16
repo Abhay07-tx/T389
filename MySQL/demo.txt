@@ -1,0 +1,261 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| banking_db           |
+| company              |
+| emp_info             |
+| information_schema   |
+| mysql                |
+| performance_schema   |
+| pizza_sales_analysis |
+| sakila               |
+| sample               |
+| student_db           |
+| sys                  |
+| world                |
++----------------------+
+12 rows in set (0.01 sec)
+
+mysql> use company;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_company |
++-------------------+
+| employee          |
+| projects          |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee;
++------+-------------------+------------+--------+--------+-----+--------+
+| Id   | Name              | Department | Salary | Gender | Age | City   |
++------+-------------------+------------+--------+--------+-----+--------+
+| 1001 | John Doe          | IT         |  35000 | Male   |  25 | London |
+| 1002 | Mary Smith        | HR         |  45000 | Female |  27 | London |
+| 1003 | James Brown       | Finance    |  50000 | Male   |  28 | London |
+| 1004 | Mike Walker       | Finance    |  50000 | Male   |  28 | London |
+| 1005 | Linda Jones       | HR         |  75000 | Female |  26 | London |
+| 1006 | Anurag Mohanty    | IT         |  35000 | Male   |  25 | Mumbai |
+| 1007 | Priyanla Dewangan | HR         |  45000 | Female |  27 | Mumbai |
+| 1008 | Sambit Mohanty    | IT         |  50000 | Male   |  28 | Mumbai |
+| 1009 | Pranaya Kumar     | IT         |  50000 | Male   |  28 | Mumbai |
+| 1010 | Hina Sharma       | HR         |  75000 | Female |  26 | Mumbai |
++------+-------------------+------------+--------+--------+-----+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from projects;
++-----------+------------------------------------------------------+----------+------------+---------------------+---------------------+
+| ProjectId | Title                                                | ClientId | EmployeeId | StartDate           | EndDate             |
++-----------+------------------------------------------------------+----------+------------+---------------------+---------------------+
+|         1 | Develop ecommerse website from scratch               |        1 |       1003 | 2026-10-14 17:19:13 | 2026-11-13 17:19:13 |
+|         2 | WordPress website for our company                    |        1 |       1002 | 2026-10-14 17:19:13 | 2026-11-28 17:19:13 |
+|         3 | Manage our company servers                           |        2 |       1007 | 2026-10-14 17:19:13 | 2026-11-28 17:19:13 |
+|         4 | Hosting account is not working                       |        3 |       1009 | 2026-10-14 17:19:13 | 2026-10-21 17:19:13 |
+|         5 | MySQL database from my desktop application           |        4 |       1010 | 2026-10-14 17:19:13 | 2026-10-29 17:19:13 |
+|         6 | Develop new WordPress plugin for my business website |        2 |       NULL | 2026-10-14 17:19:13 | 2026-10-24 17:19:13 |
+|         7 | Migrate web application and database to new server   |        2 |       NULL | 2026-10-14 17:19:13 | 2026-10-19 17:19:13 |
+|         8 | Android Application development                      |        4 |       1004 | 2026-10-14 17:19:13 | 2026-11-13 17:19:13 |
+|         9 | Hosting account is not working                       |        3 |       1001 | 2026-10-14 17:19:13 | 2026-10-21 17:19:13 |
+|        10 | MySQL database from my desktop application           |        4 |       1008 | 2026-10-14 17:19:13 | 2026-10-29 17:19:13 |
+|        11 | Develop new WordPress plugin for my business website |        2 |       NULL | 2026-10-14 17:19:13 | 2026-10-24 17:19:13 |
++-----------+------------------------------------------------------+----------+------------+---------------------+---------------------+
+11 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> notee;
+mysql> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e inner join projects p on e.Id=p.EmployeeId;
++------+-------------------+--------+--------------------------------------------+-----------+
+| Id   | name              | salary | title                                      | ProjectId |
++------+-------------------+--------+--------------------------------------------+-----------+
+| 1003 | James Brown       |  50000 | Develop ecommerse website from scratch     |         1 |
+| 1002 | Mary Smith        |  45000 | WordPress website for our company          |         2 |
+| 1007 | Priyanla Dewangan |  45000 | Manage our company servers                 |         3 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working             |         4 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application |         5 |
+| 1004 | Mike Walker       |  50000 | Android Application development            |         8 |
+| 1001 | John Doe          |  35000 | Hosting account is not working             |         9 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application |        10 |
++------+-------------------+--------+--------------------------------------------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e left join projects p on e.Id=p.EmployeeId;
++------+-------------------+--------+--------------------------------------------+-----------+
+| Id   | name              | salary | title                                      | ProjectId |
++------+-------------------+--------+--------------------------------------------+-----------+
+| 1001 | John Doe          |  35000 | Hosting account is not working             |         9 |
+| 1002 | Mary Smith        |  45000 | WordPress website for our company          |         2 |
+| 1003 | James Brown       |  50000 | Develop ecommerse website from scratch     |         1 |
+| 1004 | Mike Walker       |  50000 | Android Application development            |         8 |
+| 1005 | Linda Jones       |  75000 | NULL                                       |      NULL |
+| 1006 | Anurag Mohanty    |  35000 | NULL                                       |      NULL |
+| 1007 | Priyanla Dewangan |  45000 | Manage our company servers                 |         3 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application |        10 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working             |         4 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application |         5 |
++------+-------------------+--------+--------------------------------------------+-----------+
+10 rows in set (0.00 sec)
+
+mysql> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e right join projects p on e.Id=p.EmployeeId;
++------+-------------------+--------+------------------------------------------------------+-----------+
+| Id   | name              | salary | title                                                | ProjectId |
++------+-------------------+--------+------------------------------------------------------+-----------+
+| 1003 | James Brown       |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1002 | Mary Smith        |  45000 | WordPress website for our company                    |         2 |
+| 1007 | Priyanla Dewangan |  45000 | Manage our company servers                           |         3 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working                       |         4 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application           |         5 |
+| NULL | NULL              |   NULL | Develop new WordPress plugin for my business website |         6 |
+| NULL | NULL              |   NULL | Migrate web application and database to new server   |         7 |
+| 1004 | Mike Walker       |  50000 | Android Application development                      |         8 |
+| 1001 | John Doe          |  35000 | Hosting account is not working                       |         9 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application           |        10 |
+| NULL | NULL              |   NULL | Develop new WordPress plugin for my business website |        11 |
++------+-------------------+--------+------------------------------------------------------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e left join projects p on e.Id=p.EmployeeId union
+    -> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e right join projects p on e.Id=p.EmployeeId;
++------+-------------------+--------+------------------------------------------------------+-----------+
+| Id   | name              | salary | title                                                | ProjectId |
++------+-------------------+--------+------------------------------------------------------+-----------+
+| 1001 | John Doe          |  35000 | Hosting account is not working                       |         9 |
+| 1002 | Mary Smith        |  45000 | WordPress website for our company                    |         2 |
+| 1003 | James Brown       |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1004 | Mike Walker       |  50000 | Android Application development                      |         8 |
+| 1005 | Linda Jones       |  75000 | NULL                                                 |      NULL |
+| 1006 | Anurag Mohanty    |  35000 | NULL                                                 |      NULL |
+| 1007 | Priyanla Dewangan |  45000 | Manage our company servers                           |         3 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application           |        10 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working                       |         4 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application           |         5 |
+| NULL | NULL              |   NULL | Develop new WordPress plugin for my business website |         6 |
+| NULL | NULL              |   NULL | Migrate web application and database to new server   |         7 |
+| NULL | NULL              |   NULL | Develop new WordPress plugin for my business website |        11 |
++------+-------------------+--------+------------------------------------------------------+-----------+
+13 rows in set (0.00 sec)
+
+mysql> select e.Id, e.name ,e.salary,p.title ,p.ProjectId from employee e cross join  projects p;
++------+-------------------+--------+------------------------------------------------------+-----------+
+| Id   | name              | salary | title                                                | ProjectId |
++------+-------------------+--------+------------------------------------------------------+-----------+
+| 1010 | Hina Sharma       |  75000 | Develop ecommerse website from scratch               |         1 |
+| 1009 | Pranaya Kumar     |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1008 | Sambit Mohanty    |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1007 | Priyanla Dewangan |  45000 | Develop ecommerse website from scratch               |         1 |
+| 1006 | Anurag Mohanty    |  35000 | Develop ecommerse website from scratch               |         1 |
+| 1005 | Linda Jones       |  75000 | Develop ecommerse website from scratch               |         1 |
+| 1004 | Mike Walker       |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1003 | James Brown       |  50000 | Develop ecommerse website from scratch               |         1 |
+| 1002 | Mary Smith        |  45000 | Develop ecommerse website from scratch               |         1 |
+| 1001 | John Doe          |  35000 | Develop ecommerse website from scratch               |         1 |
+| 1010 | Hina Sharma       |  75000 | WordPress website for our company                    |         2 |
+| 1009 | Pranaya Kumar     |  50000 | WordPress website for our company                    |         2 |
+| 1008 | Sambit Mohanty    |  50000 | WordPress website for our company                    |         2 |
+| 1007 | Priyanla Dewangan |  45000 | WordPress website for our company                    |         2 |
+| 1006 | Anurag Mohanty    |  35000 | WordPress website for our company                    |         2 |
+| 1005 | Linda Jones       |  75000 | WordPress website for our company                    |         2 |
+| 1004 | Mike Walker       |  50000 | WordPress website for our company                    |         2 |
+| 1003 | James Brown       |  50000 | WordPress website for our company                    |         2 |
+| 1002 | Mary Smith        |  45000 | WordPress website for our company                    |         2 |
+| 1001 | John Doe          |  35000 | WordPress website for our company                    |         2 |
+| 1010 | Hina Sharma       |  75000 | Manage our company servers                           |         3 |
+| 1009 | Pranaya Kumar     |  50000 | Manage our company servers                           |         3 |
+| 1008 | Sambit Mohanty    |  50000 | Manage our company servers                           |         3 |
+| 1007 | Priyanla Dewangan |  45000 | Manage our company servers                           |         3 |
+| 1006 | Anurag Mohanty    |  35000 | Manage our company servers                           |         3 |
+| 1005 | Linda Jones       |  75000 | Manage our company servers                           |         3 |
+| 1004 | Mike Walker       |  50000 | Manage our company servers                           |         3 |
+| 1003 | James Brown       |  50000 | Manage our company servers                           |         3 |
+| 1002 | Mary Smith        |  45000 | Manage our company servers                           |         3 |
+| 1001 | John Doe          |  35000 | Manage our company servers                           |         3 |
+| 1010 | Hina Sharma       |  75000 | Hosting account is not working                       |         4 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working                       |         4 |
+| 1008 | Sambit Mohanty    |  50000 | Hosting account is not working                       |         4 |
+| 1007 | Priyanla Dewangan |  45000 | Hosting account is not working                       |         4 |
+| 1006 | Anurag Mohanty    |  35000 | Hosting account is not working                       |         4 |
+| 1005 | Linda Jones       |  75000 | Hosting account is not working                       |         4 |
+| 1004 | Mike Walker       |  50000 | Hosting account is not working                       |         4 |
+| 1003 | James Brown       |  50000 | Hosting account is not working                       |         4 |
+| 1002 | Mary Smith        |  45000 | Hosting account is not working                       |         4 |
+| 1001 | John Doe          |  35000 | Hosting account is not working                       |         4 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application           |         5 |
+| 1009 | Pranaya Kumar     |  50000 | MySQL database from my desktop application           |         5 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application           |         5 |
+| 1007 | Priyanla Dewangan |  45000 | MySQL database from my desktop application           |         5 |
+| 1006 | Anurag Mohanty    |  35000 | MySQL database from my desktop application           |         5 |
+| 1005 | Linda Jones       |  75000 | MySQL database from my desktop application           |         5 |
+| 1004 | Mike Walker       |  50000 | MySQL database from my desktop application           |         5 |
+| 1003 | James Brown       |  50000 | MySQL database from my desktop application           |         5 |
+| 1002 | Mary Smith        |  45000 | MySQL database from my desktop application           |         5 |
+| 1001 | John Doe          |  35000 | MySQL database from my desktop application           |         5 |
+| 1010 | Hina Sharma       |  75000 | Develop new WordPress plugin for my business website |         6 |
+| 1009 | Pranaya Kumar     |  50000 | Develop new WordPress plugin for my business website |         6 |
+| 1008 | Sambit Mohanty    |  50000 | Develop new WordPress plugin for my business website |         6 |
+| 1007 | Priyanla Dewangan |  45000 | Develop new WordPress plugin for my business website |         6 |
+| 1006 | Anurag Mohanty    |  35000 | Develop new WordPress plugin for my business website |         6 |
+| 1005 | Linda Jones       |  75000 | Develop new WordPress plugin for my business website |         6 |
+| 1004 | Mike Walker       |  50000 | Develop new WordPress plugin for my business website |         6 |
+| 1003 | James Brown       |  50000 | Develop new WordPress plugin for my business website |         6 |
+| 1002 | Mary Smith        |  45000 | Develop new WordPress plugin for my business website |         6 |
+| 1001 | John Doe          |  35000 | Develop new WordPress plugin for my business website |         6 |
+| 1010 | Hina Sharma       |  75000 | Migrate web application and database to new server   |         7 |
+| 1009 | Pranaya Kumar     |  50000 | Migrate web application and database to new server   |         7 |
+| 1008 | Sambit Mohanty    |  50000 | Migrate web application and database to new server   |         7 |
+| 1007 | Priyanla Dewangan |  45000 | Migrate web application and database to new server   |         7 |
+| 1006 | Anurag Mohanty    |  35000 | Migrate web application and database to new server   |         7 |
+| 1005 | Linda Jones       |  75000 | Migrate web application and database to new server   |         7 |
+| 1004 | Mike Walker       |  50000 | Migrate web application and database to new server   |         7 |
+| 1003 | James Brown       |  50000 | Migrate web application and database to new server   |         7 |
+| 1002 | Mary Smith        |  45000 | Migrate web application and database to new server   |         7 |
+| 1001 | John Doe          |  35000 | Migrate web application and database to new server   |         7 |
+| 1010 | Hina Sharma       |  75000 | Android Application development                      |         8 |
+| 1009 | Pranaya Kumar     |  50000 | Android Application development                      |         8 |
+| 1008 | Sambit Mohanty    |  50000 | Android Application development                      |         8 |
+| 1007 | Priyanla Dewangan |  45000 | Android Application development                      |         8 |
+| 1006 | Anurag Mohanty    |  35000 | Android Application development                      |         8 |
+| 1005 | Linda Jones       |  75000 | Android Application development                      |         8 |
+| 1004 | Mike Walker       |  50000 | Android Application development                      |         8 |
+| 1003 | James Brown       |  50000 | Android Application development                      |         8 |
+| 1002 | Mary Smith        |  45000 | Android Application development                      |         8 |
+| 1001 | John Doe          |  35000 | Android Application development                      |         8 |
+| 1010 | Hina Sharma       |  75000 | Hosting account is not working                       |         9 |
+| 1009 | Pranaya Kumar     |  50000 | Hosting account is not working                       |         9 |
+| 1008 | Sambit Mohanty    |  50000 | Hosting account is not working                       |         9 |
+| 1007 | Priyanla Dewangan |  45000 | Hosting account is not working                       |         9 |
+| 1006 | Anurag Mohanty    |  35000 | Hosting account is not working                       |         9 |
+| 1005 | Linda Jones       |  75000 | Hosting account is not working                       |         9 |
+| 1004 | Mike Walker       |  50000 | Hosting account is not working                       |         9 |
+| 1003 | James Brown       |  50000 | Hosting account is not working                       |         9 |
+| 1002 | Mary Smith        |  45000 | Hosting account is not working                       |         9 |
+| 1001 | John Doe          |  35000 | Hosting account is not working                       |         9 |
+| 1010 | Hina Sharma       |  75000 | MySQL database from my desktop application           |        10 |
+| 1009 | Pranaya Kumar     |  50000 | MySQL database from my desktop application           |        10 |
+| 1008 | Sambit Mohanty    |  50000 | MySQL database from my desktop application           |        10 |
+| 1007 | Priyanla Dewangan |  45000 | MySQL database from my desktop application           |        10 |
+| 1006 | Anurag Mohanty    |  35000 | MySQL database from my desktop application           |        10 |
+| 1005 | Linda Jones       |  75000 | MySQL database from my desktop application           |        10 |
+| 1004 | Mike Walker       |  50000 | MySQL database from my desktop application           |        10 |
+| 1003 | James Brown       |  50000 | MySQL database from my desktop application           |        10 |
+| 1002 | Mary Smith        |  45000 | MySQL database from my desktop application           |        10 |
+| 1001 | John Doe          |  35000 | MySQL database from my desktop application           |        10 |
+| 1010 | Hina Sharma       |  75000 | Develop new WordPress plugin for my business website |        11 |
+| 1009 | Pranaya Kumar     |  50000 | Develop new WordPress plugin for my business website |        11 |
+| 1008 | Sambit Mohanty    |  50000 | Develop new WordPress plugin for my business website |        11 |
+| 1007 | Priyanla Dewangan |  45000 | Develop new WordPress plugin for my business website |        11 |
+| 1006 | Anurag Mohanty    |  35000 | Develop new WordPress plugin for my business website |        11 |
+| 1005 | Linda Jones       |  75000 | Develop new WordPress plugin for my business website |        11 |
+| 1004 | Mike Walker       |  50000 | Develop new WordPress plugin for my business website |        11 |
+| 1003 | James Brown       |  50000 | Develop new WordPress plugin for my business website |        11 |
+| 1002 | Mary Smith        |  45000 | Develop new WordPress plugin for my business website |        11 |
+| 1001 | John Doe          |  35000 | Develop new WordPress plugin for my business website |        11 |
++------+-------------------+--------+------------------------------------------------------+-----------+
+110 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> notee;
