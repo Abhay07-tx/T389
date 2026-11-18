@@ -1,0 +1,159 @@
+mysql> show databases;
++----------------------+
+| Database             |
++----------------------+
+| banking_db           |
+| company              |
+| emp_info             |
+| information_schema   |
+| mysql                |
+| performance_schema   |
+| pizza_sales_analysis |
+| sakila               |
+| sample               |
+| student_db           |
+| sys                  |
+| world                |
++----------------------+
+12 rows in set (0.07 sec)
+
+mysql> use banking_db;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_banking_db |
++----------------------+
+| account              |
+| accountbranches      |
+| branches             |
+| customers            |
+| loans                |
+| transaction          |
++----------------------+
+6 rows in set (0.06 sec)
+
+mysql> select * from account;
++-----------+-------------+----------+------------+
+| AccountID | Accounttype | Balance  | CustomerID |
++-----------+-------------+----------+------------+
+|       101 | Savings     | 25000.00 |          1 |
+|       102 | Checking    |  4500.00 |          2 |
+|       103 | Savings     | 75000.00 |          3 |
+|       104 | Checking    |  2200.00 |          4 |
+|       105 | Savings     | 12000.00 |          5 |
+|       106 | Checking    |  8500.00 |          6 |
+|       107 | Savings     | 45000.00 |          7 |
+|       108 | Checking    |  2200.00 |          8 |
+|       109 | Savings     | 95000.00 |          9 |
+|       110 | Checking    |  5600.00 |         10 |
+|       111 | Savings     | 18000.00 |         11 |
+|       112 | Checking    |  6800.00 |         12 |
+|       113 | Savings     | 55000.00 |         13 |
+|       114 | Checking    |  4100.00 |         14 |
+|       115 | Savings     | 32000.00 |         15 |
+|       116 | Checking    |  7900.00 |         16 |
+|       117 | Savings     | 62000.00 |         17 |
+|       118 | Checking    |  3500.00 |         18 |
+|       119 | Savings     | 88000.00 |         19 |
+|       120 | Checking    |  9100.00 |         20 |
++-----------+-------------+----------+------------+
+20 rows in set (0.06 sec)
+
+mysql> select * from account where a.Balance >(selet avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype)' at line 1
+mysql> select a.AccountID,a.Accounttype,a.Balance from account where a.Balance >(selet avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype)' at line 1
+mysql> select a.AccountID,a.Accounttype,a.Balance from account where a.Balance >selet avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avg(a2.Balance) from account a2 where a2. Accounttype=a.Accounttype)' at line 1
+mysql> select a.AccountID,a.Accounttype,a.Balance from account where a.Balance >(selet avg(a2.Balance)) from account a2 where a2. Accounttype=a.Accounttype);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'avg(a2.Balance)) from account a2 where a2. Accounttype=a.Accounttype)' at line 1
+mysql> SELECT a.AccountID, a.AccountType, a.Balance
+    -> FROM account a
+    -> WHERE a.Balance > (
+    ->     SELECT AVG(a2.Balance)
+    ->     FROM account a2
+    ->     WHERE a2.AccountType = a.AccountType
+    -> );
++-----------+-------------+----------+
+| AccountID | AccountType | Balance  |
++-----------+-------------+----------+
+|       103 | Savings     | 75000.00 |
+|       106 | Checking    |  8500.00 |
+|       109 | Savings     | 95000.00 |
+|       110 | Checking    |  5600.00 |
+|       112 | Checking    |  6800.00 |
+|       113 | Savings     | 55000.00 |
+|       116 | Checking    |  7900.00 |
+|       117 | Savings     | 62000.00 |
+|       119 | Savings     | 88000.00 |
+|       120 | Checking    |  9100.00 |
++-----------+-------------+----------+
+10 rows in set (0.01 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from transaction;
++---------------+-----------------+----------+-----------------+------------+
+| TransactionID | TransactionDate | Amount   | Transactiontype | Account_id |
++---------------+-----------------+----------+-----------------+------------+
+|             1 | 2025-05-01      |  5000.00 | Deposit         |        101 |
+|             2 | 2025-05-02      |  1500.00 | Withdrawal      |        102 |
+|             3 | 2025-05-03      | 10000.00 | Deposit         |        103 |
+|             4 | 2025-05-04      |   800.00 | Withdrawal      |        104 |
+|             5 | 2025-05-05      |  2500.00 | Deposit         |        105 |
+|             6 | 2025-05-06      |  1200.00 | Withdrawal      |        106 |
+|             7 | 2025-05-07      |  7500.00 | Deposit         |        107 |
+|             8 | 2025-05-08      |   600.00 | Withdrawal      |        108 |
+|             9 | 2025-05-09      | 15000.00 | Deposit         |        109 |
+|            10 | 2025-05-10      |  2000.00 | Withdrawal      |        110 |
+|            11 | 2025-05-11      |  4000.00 | Deposit         |        111 |
+|            12 | 2025-05-12      |  1800.00 | Withdrawal      |        112 |
+|            13 | 2025-05-13      |  9000.00 | Deposit         |        113 |
+|            14 | 2025-05-14      |   700.00 | Withdrawal      |        114 |
+|            15 | 2025-05-15      |  3500.00 | Deposit         |        115 |
+|            16 | 2025-05-16      |  2500.00 | Withdrawal      |        116 |
+|            17 | 2025-05-17      | 12000.00 | Deposit         |        117 |
+|            18 | 2025-05-18      |  1000.00 | Withdrawal      |        118 |
+|            19 | 2025-05-19      | 18000.00 | Deposit         |        119 |
+|            20 | 2025-05-20      |  3000.00 | Withdrawal      |        120 |
++---------------+-----------------+----------+-----------------+------------+
+20 rows in set (0.06 sec)
+
+mysql> select * from transaction t where t.Amount >(select avg(t2. Amount ) from transaction t2 where t2.Transactiontype=t.Transactiontype);
++---------------+-----------------+----------+-----------------+------------+
+| TransactionID | TransactionDate | Amount   | Transactiontype | Account_id |
++---------------+-----------------+----------+-----------------+------------+
+|             3 | 2025-05-03      | 10000.00 | Deposit         |        103 |
+|             9 | 2025-05-09      | 15000.00 | Deposit         |        109 |
+|            10 | 2025-05-10      |  2000.00 | Withdrawal      |        110 |
+|            12 | 2025-05-12      |  1800.00 | Withdrawal      |        112 |
+|            13 | 2025-05-13      |  9000.00 | Deposit         |        113 |
+|            16 | 2025-05-16      |  2500.00 | Withdrawal      |        116 |
+|            17 | 2025-05-17      | 12000.00 | Deposit         |        117 |
+|            19 | 2025-05-19      | 18000.00 | Deposit         |        119 |
+|            20 | 2025-05-20      |  3000.00 | Withdrawal      |        120 |
++---------------+-----------------+----------+-----------------+------------+
+9 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from transaction t where t.Amount >(select avg(t2. Amount ) from transaction t2 where t2.Account_id=t.Account_id);
+Empty set (0.06 sec)
+
+mysql> insert into transaction values(21,"2026-01-02",2000,"Deposit",101);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from transaction t where t.Amount >(select avg(t2. Amount ) from transaction t2 where t2.Account_id=t.Account_id);
++---------------+-----------------+---------+-----------------+------------+
+| TransactionID | TransactionDate | Amount  | Transactiontype | Account_id |
++---------------+-----------------+---------+-----------------+------------+
+|             1 | 2025-05-01      | 5000.00 | Deposit         |        101 |
++---------------+-----------------+---------+-----------------+------------+
+1 row in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> notee;
